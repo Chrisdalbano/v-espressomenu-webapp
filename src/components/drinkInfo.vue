@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li @click="toggleContent">{{ name }} {{ drinkIsFavorite ? '(*)' : ''}} - {{ drinkSize }}</li>
+    <li @click="toggleContent">{{ name }} {{ isFavorite ? '(*)' : ''}} - {{ drinkSize }}</li>
     <form v-if="contentIsVisible">
       <ul>
         <li>
@@ -28,6 +28,10 @@
 export default {
   //props: ["name", "drinkSize", "baseFlavor", "drinkContains", "drinkStory", IsFavorite"],
   props: {
+    id: {
+      type: String,
+      required: true
+    },
     name: {
       type: String,
       required: true
@@ -61,7 +65,6 @@ export default {
   data() {
     return {
       contentIsVisible: false,
-      drinkIsFavorite: this.isFavorite
     };
   },
   methods: {
@@ -72,11 +75,7 @@ export default {
       alert("Drink crafted!");
     },
     toggleFavorite(){
-      if(this.drinkIsFavorite){
-        this.drinkIsFavorite = false
-      } else {
-        this.drinkIsFavorite = true
-      }
+      this.$emit('toggle-favorite', this.id);
     }
   },
 };

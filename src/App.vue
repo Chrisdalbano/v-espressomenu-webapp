@@ -9,12 +9,15 @@
       <drink-info
         v-for="drink in drinks"
         :key="drink.id"
+        :id="drink.id"
         :name="drink.name"
         :drink-size="drink.size"
         :base-flavor="drink.flavor"
         :drink-contains="drink.contains"
         :drink-story="drink.story"
-        :is-favorite="false"
+        :is-favorite="drink.isFavorite"
+        @toggle-favorite="toggleFavoriteStatus"
+
       ></drink-info>
     </ul>
   </section>
@@ -22,6 +25,12 @@
 
 <script>
 export default {
+  methods: {
+    toggleFavoriteStatus(drinkId){
+      const identifiedDrink = this.drinks.find(drink => drink.id === drinkId);
+      identifiedDrink.isFavorite = !identifiedDrink.isFavorite
+    }
+  },
   data(){
     return{
       drinks: [
