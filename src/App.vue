@@ -18,6 +18,7 @@
         :drink-story="drink.story"
         :is-favorite="drink.isFavorite"
         @toggle-favorite="toggleFavoriteStatus"
+        @delete-drink="deleteDrink"
 
       ></drink-info>
     </ul>
@@ -43,7 +44,11 @@ export default {
         story: story,
         isFavorite: false
       };
-      this.drinks.push(newDrink); 
+      this.drinks.push(newDrink);
+      console.log("ID: ", newDrink.id); 
+    },
+    deleteDrink(drinkId){
+      this.drinks = this.drinks.filter((drink) => drink.id !== drinkId);
     }
   },
   data(){

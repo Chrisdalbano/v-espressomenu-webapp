@@ -20,7 +20,7 @@
       <button @click="toggleContent">Close</button>
       <button @click="makeDrink" type="button">Make it</button>
       <button @click="toggleFavorite" type="button">Mark as favorite</button>
-      <button @click="deleteDrink">Delete</button>
+      <button @click="$emit('delete-drink', id)" type="button">Delete</button>
     </form>
   </ul>
 </template>
@@ -59,7 +59,8 @@ export default {
       default: false
     }
   },
-  emits: {
+  //emits could also be for example; emits: ['toggle-favorite', 'delete-drink',...] It should also work!
+  /* emits: {
     'toggle-favorite': function(id) {
       if(id){
         return true;
@@ -67,8 +68,17 @@ export default {
         console.warn('Id is missing')
         return false;
       }
+    },
+    'delete-drink': function(id) {
+      if(id){
+        return true;
+      } else {
+        console.warn('Id is missing')
+        return false; 
+      }
     }
-  },
+  }, */
+  emits : ['toggle-favorite', 'delete-drink'],
   data() {
     return {
       contentIsVisible: false,
@@ -82,8 +92,9 @@ export default {
       alert("Drink crafted!");
     },
     toggleFavorite(){
-      this.$emit('toggle-favorite', this.id);
-    }
+      this.$emit('toggle-favorite', this.id); //Method emit helps you to point certain ID to access the information for custom methods
+    },
+   
   },
 };
 </script>
