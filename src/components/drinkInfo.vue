@@ -8,8 +8,8 @@
           {{ baseFlavor }}
         </li>
         <li>
-          <strong>Contains: </strong>
-          {{ drinkContains }}
+          <strong>ingredients: </strong>
+          {{ drinkIngredients }}
         </li>
         <li>
           <strong>Story of the name: </strong>
@@ -20,13 +20,14 @@
       <button @click="toggleContent">Close</button>
       <button @click="makeDrink" type="button">Make it</button>
       <button @click="toggleFavorite" type="button">Mark as favorite</button>
+      <button @click="deleteDrink">Delete</button>
     </form>
   </ul>
 </template>
 
 <script>
 export default {
-  //props: ["name", "drinkSize", "baseFlavor", "drinkContains", "drinkStory", IsFavorite"],
+  //props: ["name", "drinkSize", "baseFlavor", "drinkingredients", "drinkStory", IsFavorite"],
   props: {
     id: {
       type: String,
@@ -36,15 +37,11 @@ export default {
       type: String,
       required: true
     },
-    phoneNumber: {
-      type: String,
-      required: true
-    },
     baseFlavor: {
       type: String,
       required: true
     },
-    drinkContains: {
+    drinkIngredients: {
       type: String,
       required: true,
     },
@@ -60,6 +57,16 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    }
+  },
+  emits: {
+    'toggle-favorite': function(id) {
+      if(id){
+        return true;
+      } else {
+        console.warn('Id is missing')
+        return false;
+      }
     }
   },
   data() {
