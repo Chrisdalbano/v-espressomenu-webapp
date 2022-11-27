@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut as signUserOut,
   onAuthStateChanged,
+  updateProfile
 } from "firebase/auth";
 
 import { useRouter } from "vue-router";
@@ -23,7 +24,7 @@ export const useAuth = defineStore("auth", () => {
       } else {
         user.value = null;
         router.push("/login");
-        console.log("User is: ", auth.user.displayName)
+        
       }
       console.log(user.value ? "User signed in" : "User signed out");
     });
@@ -47,12 +48,14 @@ export const useAuth = defineStore("auth", () => {
       const credentials = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
+        displayName
       );
       if (!credentials) {
         throw new Error("Could not complete the Sign up");
       }
-      await updateProfile(auth.currentUser, { displayName });
+      // await updateProfile(auth.currentUser, { displayName });
+      await updateProfile(auth.currentUser, { displayName })
       user.value = credentials.user;
     } catch (err) {
       console.log(err);

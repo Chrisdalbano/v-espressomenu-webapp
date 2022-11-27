@@ -2,7 +2,7 @@
   <nav>
     <div>
       <p>Hey there {{ auth.user.displayName }}</p>
-      <p class="email">Currently logged in as... email</p>
+      <p class="email">Currently logged in as... {{ auth.user.email }}</p>
     </div>
     <button @click="auth.signOut">Log out</button>
   </nav>

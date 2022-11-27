@@ -22,13 +22,13 @@ export default {
     const { error, signIn } = useAuth();
 
     const handleSubmit = async () => {
-      await signIn(email.value, password.value, displayName.value);
+      await signIn(email.value, password.value);
       if(!error.value){
-        console.log('user logged in');
+        console.log('user logged in ');
       }
     };
 
-    return { email, password, displayName, handleSubmit };
+    return { email, password, handleSubmit };
   },
 };
 </script>
