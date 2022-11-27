@@ -1,21 +1,46 @@
-import { ref } from 'vue';
-import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 
-const db = getFirestore();
-const useCollection = (collection) => {
-    const error = ref(null);
+import { db } from "@/assets/firebase/config";
 
-    const addDoc = async (doc) => {
-        error.value = null;
-
-        try {
-            await collection(db).add(doc);
-        } catch(err) {
-            console.log(err.message);
-            err.value = 'Could not send the message';
-        }
+export function useCollection(name) {
+  async function add(data) {
+    try {
+      return await addDoc(collection(db, name), data);
+    } catch (error) {
+      console.error(error);
     }
-    return { error, addDoc }
+  }
+  async function get(id) {
+    try {
+      if (id == null) {
+        return await getDocs(doc(db, name));
+      } else {
+        return await getDocs(doc(db, name, id));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function remove(id) {
+    try {
+      await deleteDoc(doc(db, name, id));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function update(id, data) {
+    try {
+      await updateDoc(doc(db, name, id), data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  return { add, get, update, remove };
 }
-
-export default useCollection
