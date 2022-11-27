@@ -27,8 +27,10 @@ export default {
         createdAt: Timestamp.fromDate(new Date()),
       };
       await add(chat);
+      message.value = '';
     };
     return { message, handleSubmit };
+    
   },
 };
 </script>
