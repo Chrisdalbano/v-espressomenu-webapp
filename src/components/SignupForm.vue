@@ -9,27 +9,28 @@
     <input type="email" required placeholder="Email" v-model="email" />
     <input type="password" required placeholder="Password" v-model="password" />
     <button>Create Account</button>
+    <div class="error" v-if="error">{{ error }}</div>
   </form>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref } from "vue";
 import { useAuth } from "@/stores/auth";
 
 export default {
   setup() {
     const { signUp } = useAuth();
-
+    const error = ref(null);
     //refs
-    const displayName = ref('');
-    const email = ref('');
-    const password = ref('');
+    const displayName = ref("");
+    const email = ref("");
+    const password = ref("");
 
     const handleSubmit = async () => {
-      signUp(email.value, password.value, displayName.value);
+      error.value = await signUp(email.value, password.value, displayName.value);
     };
 
-    return { displayName, email, password, handleSubmit };
+    return { error, displayName, email, password, handleSubmit };
   },
 };
 </script>

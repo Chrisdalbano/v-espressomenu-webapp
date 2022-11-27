@@ -39,7 +39,7 @@ export const useAuth = defineStore("auth", () => {
       user.value = credentials.user;
     } catch (error) {
       console.error(error);
-      return error;
+      return "Invalid credentials.";
     }
   }
 
@@ -58,7 +58,7 @@ export const useAuth = defineStore("auth", () => {
       user.value = credentials.user;
     } catch (error) {
       console.error(error);
-      return error;
+      return "Email already exists on file.";
     }
   }
 

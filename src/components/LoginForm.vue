@@ -3,6 +3,7 @@
     <input type="email" required placeholder="Email" v-model="email" />
     <input type="password" required placeholder="Password" v-model="password" />
     <button>Log in</button>
+    <div class="error" v-if="error">{{ error }}</div>
   </form>
 </template>
 
@@ -10,25 +11,24 @@
 import { ref } from "vue";
 
 import { useAuth } from "@/stores/auth";
+import { errorPrefix } from "@firebase/util";
 
 export default {
   setup() {
     //refs
-    
+
     const email = ref("");
     const password = ref("");
     const displayName = ref("");
 
-    const { error, signIn } = useAuth();
+    const { signIn } = useAuth();
+    const error = ref(null);
 
     const handleSubmit = async () => {
-      await signIn(email.value, password.value);
-      if(!error.value){
-        console.log('user logged in ');
-      }
+      error.value = await signIn(email.value, password.value);
     };
 
-    return { email, password, handleSubmit };
+    return { error, email, password, handleSubmit };
   },
 };
 </script>
