@@ -4,7 +4,7 @@
     <!-- <p>Welcome</p> -->
     <div v-if="showLogin">
       <h2>Login</h2>
-      <LoginForm />
+      <LoginForm @login="enterLog" />
       <p>
         Don't have an account?
         <span @click="showLogin = false">Sign up</span> instead
@@ -25,7 +25,7 @@
 import SignupForm from "../components/SignupForm.vue";
 import LoginForm from "../components/LoginForm.vue";
 import { ref } from "vue";
-import { useRouter } from "vue-router"
+import { useRouter } from "vue-router";
 
 import { useAuth } from "@/stores/auth";
 
@@ -33,11 +33,10 @@ export default {
   components: { SignupForm, LoginForm },
   setup() {
     const showLogin = ref(true);
-
     const router = useRouter();
     const auth = useAuth();
 
-    if (auth.user) router.push("/")
+    if (auth.user) router.push("/");
 
     return { showLogin };
   },

@@ -14,16 +14,21 @@ import { useAuth } from "@/stores/auth";
 export default {
   setup() {
     //refs
+    
     const email = ref("");
     const password = ref("");
+    const displayName = ref("");
 
-    const { signIn } = useAuth();
+    const { error, signIn } = useAuth();
 
-    const handleSubmit = () => {
-      signIn(email.value, password.value);
+    const handleSubmit = async () => {
+      await signIn(email.value, password.value, displayName.value);
+      if(!error.value){
+        console.log('user logged in');
+      }
     };
 
-    return { email, password, handleSubmit };
+    return { email, password, displayName, handleSubmit };
   },
 };
 </script>

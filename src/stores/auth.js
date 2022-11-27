@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
-import { useRouter } from "vue-router"
+import { useRouter } from "vue-router";
 
 import { auth } from "@/assets/firebase/config";
 
@@ -23,11 +23,12 @@ export const useAuth = defineStore("auth", () => {
       } else {
         user.value = null;
         router.push("/login");
+        console.log("User is: ", auth.user.displayName)
       }
       console.log(user.value ? "User signed in" : "User signed out");
     });
   }
-
+  
   async function signIn(email, password) {
     try {
       const credentials = await signInWithEmailAndPassword(

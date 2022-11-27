@@ -1,13 +1,11 @@
 <script setup>
+import Navbar from "../components/Navbar.vue"
 import { useAuth } from "@/stores/auth";
-
-const auth = useAuth();
+const auth = useAuth()
 </script>
 
 <template>
-  <div v-if="auth.user">
-    <p>User:</p>
-    <p>{{ auth.user }}</p>
-    <button @click="auth.signOut">Log out</button>
+  <div v-if="auth.user" class="container">
+    <Navbar/>
   </div>
 </template>
