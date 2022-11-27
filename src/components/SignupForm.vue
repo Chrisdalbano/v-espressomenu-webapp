@@ -8,7 +8,7 @@
     />
     <input type="email" required placeholder="Email" v-model="email" />
     <input type="password" required placeholder="Password" v-model="password" />
-    <button>Sign up</button>
+    <button>Create Account</button>
   </form>
 </template>
 

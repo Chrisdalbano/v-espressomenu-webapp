@@ -54,7 +54,6 @@ export const useAuth = defineStore("auth", () => {
       if (!credentials) {
         throw new Error("Could not complete the Sign up");
       }
-      // await updateProfile(auth.currentUser, { displayName });
       await updateProfile(auth.currentUser, { displayName })
       user.value = credentials.user;
     } catch (err) {
